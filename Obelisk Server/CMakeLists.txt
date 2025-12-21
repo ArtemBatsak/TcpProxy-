@@ -1,16 +1,15 @@
 ﻿cmake_minimum_required(VERSION 3.16)
 project(ObeliskServer LANGUAGES CXX)
 
-# ------------------ C++ стандарт ------------------
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# ------------------ Пути ------------------
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(LIB_DIR ${CMAKE_SOURCE_DIR}/Lib)
 
-# ------------------ Исходники ------------------
+
 set(SOURCES
     ${SRC_DIR}/main.cpp
     ${SRC_DIR}/manager/Data.cpp
@@ -18,10 +17,8 @@ set(SOURCES
     ${SRC_DIR}/tls/tls_session.cpp
 )
 
-# ------------------ Создание исполняемого файла ------------------
 add_executable(ObeliskServer ${SOURCES})
 
-# ------------------ Include directories ------------------
 target_include_directories(ObeliskServer PRIVATE
     ${SRC_DIR}
     ${SRC_DIR}/manager
@@ -29,7 +26,6 @@ target_include_directories(ObeliskServer PRIVATE
     ${SRC_DIR}/tls
 )
 
-# ------------------ Платформо-зависимые библиотеки ------------------
 if(WIN32)
     # Windows include & libs
     target_include_directories(ObeliskServer PRIVATE
@@ -54,9 +50,9 @@ else()
 endif()
 
 
-# ------------------ Компиляторные флаги ------------------
 if(MSVC)
     target_compile_options(ObeliskServer PRIVATE /W4 /permissive-)
 else()
     target_compile_options(ObeliskServer PRIVATE -Wall -Wextra -Wpedantic -pthread)
 endif()
+
